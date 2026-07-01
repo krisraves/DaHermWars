@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/bosses/headliner_x.gd" id="1_b"]
+[ext_resource type="Script" path="res://scripts/combat/health.gd" id="2_h"]
+[ext_resource type="Script" path="res://scripts/combat/hurtbox.gd" id="3_hb"]
+
+[sub_resource type="RectangleShape2D" id="shape_body"]
+size = Vector2(54, 126)
+
+[sub_resource type="RectangleShape2D" id="shape_hurt"]
+size = Vector2(62, 134)
+
+[node name="HeadlinerX" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 1
+script = ExtResource("1_b")
+gravity = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("shape_body")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2_h")
+max_health = 410
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("3_hb")
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("shape_hurt")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Form" type="ColorRect" parent="Visual"]
+offset_left = -28.0
+offset_top = -64.0
+offset_right = 28.0
+offset_bottom = 64.0
+color = Color(0.7, 0.75, 0.9, 0.75)
+
+[node name="Bowtie" type="ColorRect" parent="Visual"]
+offset_left = -8.0
+offset_top = -26.0
+offset_right = 8.0
+offset_bottom = -16.0
+color = Color(0.5, 0.55, 0.75, 0.85)
+
+[node name="MicHand" type="ColorRect" parent="Visual"]
+offset_left = 24.0
+offset_top = -34.0
+offset_right = 36.0
+offset_bottom = -14.0
+color = Color(0.55, 0.6, 0.8, 0.8)
+
+[node name="Telegraph" type="ColorRect" parent="Visual"]
+visible = false
+offset_left = -12.0
+offset_top = -114.0
+offset_right = 12.0
+offset_bottom = -90.0
+color = Color(1, 0.2, 0.15, 1)

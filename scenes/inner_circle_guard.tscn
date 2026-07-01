@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemies/flyer_enemy.gd" id="1_e"]
+[ext_resource type="Script" path="res://scripts/combat/health.gd" id="2_h"]
+[ext_resource type="Script" path="res://scripts/combat/hurtbox.gd" id="3_hb"]
+
+[sub_resource type="RectangleShape2D" id="shape_body"]
+size = Vector2(44, 32)
+
+[sub_resource type="RectangleShape2D" id="shape_hurt"]
+size = Vector2(50, 38)
+
+[node name="UsherGhost" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 1
+script = ExtResource("1_e")
+gravity = 0.0
+follower_drop = 8
+fly_speed = 110.0
+fire_interval = 2.2
+preferred_range = 220.0
+hover_height = 110.0
+proj_color = Color(0.75, 0.8, 0.95, 1)
+proj_label = "SHHH"
+proj_damage = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("shape_body")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2_h")
+max_health = 26
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("3_hb")
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("shape_hurt")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Body" type="ColorRect" parent="Visual"]
+offset_left = -22.0
+offset_top = -16.0
+offset_right = 22.0
+offset_bottom = 16.0
+color = Color(0.72, 0.76, 0.9, 0.8)
+
+[node name="Top" type="ColorRect" parent="Visual"]
+offset_left = -14.0
+offset_top = -16.0
+offset_right = 14.0
+offset_bottom = -4.0
+color = Color(0.8, 0.85, 0.95, 1)
+
+[node name="Accent" type="ColorRect" parent="Visual"]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+color = Color(0.4, 0.45, 0.6, 1)

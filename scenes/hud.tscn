@@ -1,0 +1,120 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_player"]
+[ext_resource type="Script" path="res://scripts/player/player_camera.gd" id="2_camera"]
+[ext_resource type="Script" path="res://scripts/combat/health.gd" id="3_health"]
+[ext_resource type="Script" path="res://scripts/combat/hurtbox.gd" id="4_hurtbox"]
+[ext_resource type="Script" path="res://scripts/combat/hitbox.gd" id="5_hitbox"]
+
+[sub_resource type="RectangleShape2D" id="shape_body"]
+size = Vector2(36, 84)
+
+[sub_resource type="RectangleShape2D" id="shape_hurt"]
+size = Vector2(32, 80)
+
+[sub_resource type="RectangleShape2D" id="shape_punch"]
+size = Vector2(56, 44)
+
+[sub_resource type="RectangleShape2D" id="shape_dash"]
+size = Vector2(64, 72)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 1
+floor_snap_length = 6.0
+script = ExtResource("1_player")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("shape_body")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("3_health")
+max_health = 100
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 0
+monitoring = false
+script = ExtResource("4_hurtbox")
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("shape_hurt")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Body" type="ColorRect" parent="Visual"]
+offset_left = -18.0
+offset_top = -42.0
+offset_right = 18.0
+offset_bottom = 42.0
+color = Color(0.82, 0.45, 0.18, 1)
+
+[node name="Hood" type="ColorRect" parent="Visual"]
+offset_left = -15.0
+offset_top = -42.0
+offset_right = 15.0
+offset_bottom = -20.0
+color = Color(0.28, 0.3, 0.36, 1)
+
+[node name="Glove" type="ColorRect" parent="Visual"]
+offset_left = 10.0
+offset_top = -6.0
+offset_right = 28.0
+offset_bottom = 10.0
+color = Color(1, 0.32, 0.04, 1)
+
+[node name="Bowtie" type="ColorRect" parent="Visual"]
+visible = false
+offset_left = -7.0
+offset_top = -22.0
+offset_right = 7.0
+offset_bottom = -14.0
+color = Color(0.95, 0.95, 0.95, 1)
+
+[node name="PunchFlash" type="ColorRect" parent="Visual"]
+visible = false
+offset_left = 20.0
+offset_top = -22.0
+offset_right = 76.0
+offset_bottom = 22.0
+color = Color(1, 0.62, 0.08, 0.85)
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
+monitoring = false
+script = ExtResource("5_hitbox")
+damage = 10
+knockback_strength = 300.0
+knockback_lift = -170.0
+
+[node name="HitboxShape" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(48, 0)
+shape = SubResource("shape_punch")
+disabled = true
+
+[node name="DashHitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
+monitoring = false
+script = ExtResource("5_hitbox")
+damage = 12
+knockback_strength = 360.0
+knockback_lift = -200.0
+
+[node name="Shape" type="CollisionShape2D" parent="DashHitbox"]
+shape = SubResource("shape_dash")
+disabled = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("2_camera")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -70.0
+offset_top = -150.0
+offset_right = 170.0
+offset_bottom = -70.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+text = "IDLE"

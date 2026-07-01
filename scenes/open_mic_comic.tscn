@@ -1,0 +1,85 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/bosses/content_castle.gd" id="1_b"]
+[ext_resource type="Script" path="res://scripts/combat/health.gd" id="2_h"]
+[ext_resource type="Script" path="res://scripts/combat/hurtbox.gd" id="3_hb"]
+
+[sub_resource type="RectangleShape2D" id="shape_body"]
+size = Vector2(220, 200)
+
+[sub_resource type="RectangleShape2D" id="shape_hurt"]
+size = Vector2(228, 208)
+
+[node name="ContentCastle" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 1
+script = ExtResource("1_b")
+gravity = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("shape_body")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2_h")
+max_health = 410
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("3_hb")
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("shape_hurt")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Facade" type="ColorRect" parent="Visual"]
+offset_left = -110.0
+offset_top = -100.0
+offset_right = 110.0
+offset_bottom = 100.0
+color = Color(0.92, 0.82, 0.86, 1)
+
+[node name="Roof" type="ColorRect" parent="Visual"]
+offset_left = -124.0
+offset_top = -128.0
+offset_right = 124.0
+offset_bottom = -100.0
+color = Color(0.6, 0.4, 0.5, 1)
+
+[node name="EyeWindow1" type="ColorRect" parent="Visual"]
+offset_left = -70.0
+offset_top = -64.0
+offset_right = -30.0
+offset_bottom = -24.0
+color = Color(0.95, 0.5, 0.85, 1)
+
+[node name="EyeWindow2" type="ColorRect" parent="Visual"]
+offset_left = 30.0
+offset_top = -64.0
+offset_right = 70.0
+offset_bottom = -24.0
+color = Color(0.95, 0.5, 0.85, 1)
+
+[node name="MouthDoor" type="ColorRect" parent="Visual"]
+offset_left = -26.0
+offset_top = 20.0
+offset_right = 26.0
+offset_bottom = 100.0
+color = Color(0.3, 0.15, 0.25, 1)
+
+[node name="RingLight" type="ColorRect" parent="Visual"]
+offset_left = -96.0
+offset_top = -90.0
+offset_right = -80.0
+offset_bottom = -74.0
+color = Color(1, 1, 0.9, 1)
+
+[node name="Telegraph" type="ColorRect" parent="Visual"]
+visible = false
+offset_left = -12.0
+offset_top = -156.0
+offset_right = 12.0
+offset_bottom = -132.0
+color = Color(1, 0.2, 0.15, 1)

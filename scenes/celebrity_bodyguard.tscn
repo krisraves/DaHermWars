@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/bosses/the_special.gd" id="1_b"]
+[ext_resource type="Script" path="res://scripts/combat/health.gd" id="2_h"]
+[ext_resource type="Script" path="res://scripts/combat/hurtbox.gd" id="3_hb"]
+
+[sub_resource type="RectangleShape2D" id="shape_body"]
+size = Vector2(150, 100)
+
+[sub_resource type="RectangleShape2D" id="shape_hurt"]
+size = Vector2(158, 108)
+
+[node name="TheSpecial" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 1
+script = ExtResource("1_b")
+gravity = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("shape_body")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2_h")
+max_health = 380
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("3_hb")
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("shape_hurt")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Screen" type="ColorRect" parent="Visual"]
+offset_left = -75.0
+offset_top = -50.0
+offset_right = 75.0
+offset_bottom = 50.0
+color = Color(0.85, 0.25, 0.3, 1)
+
+[node name="Glare" type="ColorRect" parent="Visual"]
+offset_left = -60.0
+offset_top = -38.0
+offset_right = 10.0
+offset_bottom = -10.0
+color = Color(1, 0.6, 0.6, 0.7)
+
+[node name="Badge" type="ColorRect" parent="Visual"]
+offset_left = 30.0
+offset_top = 18.0
+offset_right = 66.0
+offset_bottom = 40.0
+color = Color(1, 0.9, 0.4, 1)
+
+[node name="Telegraph" type="ColorRect" parent="Visual"]
+visible = false
+offset_left = -12.0
+offset_top = -86.0
+offset_right = 12.0
+offset_bottom = -62.0
+color = Color(1, 0.2, 0.15, 1)

@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemies/ranged_enemy.gd" id="1_e"]
+[ext_resource type="Script" path="res://scripts/combat/health.gd" id="2_h"]
+[ext_resource type="Script" path="res://scripts/combat/hurtbox.gd" id="3_hb"]
+
+[sub_resource type="RectangleShape2D" id="shape_body"]
+size = Vector2(36, 76)
+
+[sub_resource type="RectangleShape2D" id="shape_hurt"]
+size = Vector2(42, 82)
+
+[node name="IlluminepsteinInitiate" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 1
+script = ExtResource("1_e")
+faction = "cult"
+proj_speed = 440.0
+proj_gravity = 0.0
+proj_damage = 9
+proj_color = Color(1, 0.9, 0.45, 1)
+proj_label = "BEHOLD"
+proj_size = Vector2(24, 24)
+fire_interval = 1.7
+preferred_range = 320.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("shape_body")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2_h")
+max_health = 38
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("3_hb")
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("shape_hurt")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Body" type="ColorRect" parent="Visual"]
+offset_left = -18.0
+offset_top = -38.0
+offset_right = 18.0
+offset_bottom = 38.0
+color = Color(0.35, 0.25, 0.45, 1)
+
+[node name="Top" type="ColorRect" parent="Visual"]
+offset_left = -16.0
+offset_top = -38.0
+offset_right = 16.0
+offset_bottom = -16.0
+color = Color(0.55, 0.45, 0.2, 1)
+
+[node name="Accent" type="ColorRect" parent="Visual"]
+offset_left = -30.0
+offset_top = -10.0
+offset_right = -12.0
+offset_bottom = 8.0
+color = Color(0.35, 0.85, 1, 1)

@@ -1,0 +1,78 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/bosses/paparazzi_swarm.gd" id="1_b"]
+[ext_resource type="Script" path="res://scripts/combat/health.gd" id="2_h"]
+[ext_resource type="Script" path="res://scripts/combat/hurtbox.gd" id="3_hb"]
+
+[sub_resource type="RectangleShape2D" id="shape_body"]
+size = Vector2(170, 110)
+
+[sub_resource type="RectangleShape2D" id="shape_hurt"]
+size = Vector2(178, 118)
+
+[node name="PaparazziSwarm" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 1
+script = ExtResource("1_b")
+gravity = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("shape_body")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2_h")
+max_health = 430
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("3_hb")
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("shape_hurt")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Mass" type="ColorRect" parent="Visual"]
+offset_left = -85.0
+offset_top = -55.0
+offset_right = 85.0
+offset_bottom = 55.0
+color = Color(0.18, 0.18, 0.23, 1)
+
+[node name="Lens1" type="ColorRect" parent="Visual"]
+offset_left = -60.0
+offset_top = -30.0
+offset_right = -36.0
+offset_bottom = -6.0
+color = Color(0.6, 0.75, 0.9, 1)
+
+[node name="Lens2" type="ColorRect" parent="Visual"]
+offset_left = 10.0
+offset_top = -40.0
+offset_right = 34.0
+offset_bottom = -16.0
+color = Color(0.6, 0.75, 0.9, 1)
+
+[node name="Lens3" type="ColorRect" parent="Visual"]
+offset_left = 44.0
+offset_top = 8.0
+offset_right = 68.0
+offset_bottom = 32.0
+color = Color(0.6, 0.75, 0.9, 1)
+
+[node name="Flashbar" type="ColorRect" parent="Visual"]
+offset_left = -30.0
+offset_top = 20.0
+offset_right = -6.0
+offset_bottom = 40.0
+color = Color(1, 1, 0.9, 1)
+
+[node name="Telegraph" type="ColorRect" parent="Visual"]
+visible = false
+offset_left = -12.0
+offset_top = -92.0
+offset_right = 12.0
+offset_bottom = -68.0
+color = Color(1, 0.2, 0.15, 1)

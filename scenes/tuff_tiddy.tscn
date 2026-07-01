@@ -1,0 +1,85 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemies/open_mic_comic.gd" id="1_comic"]
+[ext_resource type="Script" path="res://scripts/combat/health.gd" id="2_health"]
+[ext_resource type="Script" path="res://scripts/combat/hurtbox.gd" id="3_hurtbox"]
+[ext_resource type="Script" path="res://scripts/combat/hitbox.gd" id="4_hitbox"]
+
+[sub_resource type="RectangleShape2D" id="shape_body"]
+size = Vector2(36, 76)
+
+[sub_resource type="RectangleShape2D" id="shape_hurt"]
+size = Vector2(42, 82)
+
+[sub_resource type="RectangleShape2D" id="shape_swing"]
+size = Vector2(62, 52)
+
+[node name="OpenMicComic" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 1
+script = ExtResource("1_comic")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("shape_body")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2_health")
+max_health = 30
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("3_hurtbox")
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("shape_hurt")
+
+[node name="MeleeHitbox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 64
+monitoring = false
+script = ExtResource("4_hitbox")
+damage = 12
+knockback_strength = 320.0
+knockback_lift = -180.0
+
+[node name="Shape" type="CollisionShape2D" parent="MeleeHitbox"]
+position = Vector2(50, 0)
+shape = SubResource("shape_swing")
+disabled = true
+
+[node name="EdgeRay" type="RayCast2D" parent="."]
+position = Vector2(26, 0)
+target_position = Vector2(0, 64)
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Body" type="ColorRect" parent="Visual"]
+offset_left = -18.0
+offset_top = -38.0
+offset_right = 18.0
+offset_bottom = 38.0
+color = Color(0.25, 0.4, 0.55, 1)
+
+[node name="Jacket" type="ColorRect" parent="Visual"]
+offset_left = -18.0
+offset_top = -38.0
+offset_right = 18.0
+offset_bottom = -2.0
+color = Color(0.45, 0.3, 0.2, 1)
+
+[node name="Mic" type="ColorRect" parent="Visual"]
+offset_left = 14.0
+offset_top = -12.0
+offset_right = 24.0
+offset_bottom = 6.0
+color = Color(0.15, 0.15, 0.15, 1)
+
+[node name="Telegraph" type="ColorRect" parent="Visual"]
+visible = false
+offset_left = -8.0
+offset_top = -62.0
+offset_right = 8.0
+offset_bottom = -46.0
+color = Color(1, 0.2, 0.15, 1)
